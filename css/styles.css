@@ -633,6 +633,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Login Page Styles */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0 16px;
+}
+
 .login-card {
   background-color: var(--card-bg);
   border-radius: 8px;
@@ -733,6 +741,12 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: underline;
 }
 
+/* Container Styles */
+.container {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
 /* Media Queries */
 @media (max-width: 768px) {
   .login-card {
@@ -745,11 +759,24 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   .min-vh-100 {
-    min-height: 90vh !important;
+    min-height: 100vh !important;
+  }
+  
+  /* Mobile login fixes */
+  .min-vh-100 {
+    min-height: 100vh !important;
+  }
+  
+  .mobile-login-col {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
   }
   
   .container {
-    padding: 10px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
   
   .user-avatar {
