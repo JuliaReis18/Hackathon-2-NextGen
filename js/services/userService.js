@@ -69,7 +69,19 @@
                         photo: photoUrl,
                         xp: data.point_categories && data.point_categories.xp ? data.point_categories.xp : 0,
                         coins: data.point_categories && data.point_categories.moedas ? data.point_categories.moedas : 0,
-                        level: data.level ? data.level.level : 'Iniciante'
+                        level: data.level ? data.level.level : 'Iniciante',
+                        // Add level progress information
+                        levelProgress: {
+                            currentLevel: data.level_progress && data.level_progress.level ? data.level_progress.level.level : 'Iniciante',
+                            currentLevelDescription: data.level_progress && data.level_progress.level ? data.level_progress.level.description : '',
+                            nextLevel: data.level_progress && data.level_progress.next_level ? data.level_progress.next_level.level : '',
+                            nextLevelDescription: data.level_progress && data.level_progress.next_level ? data.level_progress.next_level.description : '',
+                            nextLevelPoints: data.level_progress && data.level_progress.next_points ? data.level_progress.next_points : 0,
+                            percentCompleted: data.level_progress && data.level_progress.percent_completed ? data.level_progress.percent_completed : 0,
+                            totalLevels: data.level_progress && data.level_progress.total_levels ? data.level_progress.total_levels : 1,
+                            position: data.level_progress && data.level_progress.level ? data.level_progress.level.position : 0,
+                            totalPercent: data.level_progress && data.level_progress.percent ? data.level_progress.percent : 0
+                        }
                     };
                     
                     console.log('Player profile data:', data);

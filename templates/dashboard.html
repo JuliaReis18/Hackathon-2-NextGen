@@ -8,9 +8,25 @@
                     <div class="col-md-3 col-sm-12 text-center mb-3 mb-md-0">
                         <img ng-src="{{user.userProfile.photo}}" alt="{{user.userProfile.name}}" class="user-avatar mb-2" onload="this.style.opacity='1'" onerror="this.src='img/default-avatar.png'" style="opacity: 0; transition: opacity 0.3s ease;">
                         <h4>{{user.userProfile.name}}</h4>
-                        <span class="level-badge">
-                            <i class="fas fa-star me-1"></i> Nível {{user.userProfile.level}}
-                        </span>
+                        <div class="level-info mb-2">
+                            <span class="level-badge">
+                                <i class="fas fa-star me-1"></i> {{user.userProfile.levelProgress.currentLevel}}
+                            </span>
+                            <div class="level-progress-container mt-2">
+                                <div class="level-progress-bar" style="width: {{user.userProfile.levelProgress.percentCompleted}}%">
+                                    <span ng-if="user.userProfile.levelProgress.percentCompleted > 30">{{user.userProfile.levelProgress.percentCompleted}}%</span>
+                                </div>
+                                <span class="level-progress-text" ng-if="user.userProfile.levelProgress.percentCompleted <= 30">{{user.userProfile.levelProgress.percentCompleted}}%</span>
+                            </div>
+                            <div class="level-details mt-1">
+                                <small class="text-muted">{{user.userProfile.levelProgress.currentLevelDescription}}</small>
+                            </div>
+                            <div class="next-level-info mt-2" ng-if="user.userProfile.levelProgress.nextLevel">
+                                <small>
+                                    <span class="text-primary">Próximo nível:</span> {{user.userProfile.levelProgress.nextLevel}}
+                                </small>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-9 col-sm-12">
                         <div class="row">
