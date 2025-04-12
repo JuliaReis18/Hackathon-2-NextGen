@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="083402ab-7b0c-419f-a499-58dc81653b61" name="Changes" comment="">
+    <list default="true" id="083402ab-7b0c-419f-a499-58dc81653b61" name="Changes" comment="fix: add default primary menu">
       <change beforePath="$PROJECT_DIR$/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/controllers/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/controllers/authController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/services/authService.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/services/authService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/challenges.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/challenges.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/rewards.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rewards.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,8 +17,25 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "emanoelims"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:JuliaReis18/Hackathon-2-NextGen.git",
+    "accountId": "e0cbfc60-13bb-47db-a00c-49094818a8be"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -53,10 +71,44 @@
       <updated>1744470083844</updated>
       <workItem from="1744470085293" duration="634000" />
       <workItem from="1744481019578" duration="555000" />
+      <workItem from="1744481871693" duration="4448000" />
     </task>
+    <task id="LOCAL-00001" summary="add idea to gitignore">
+      <option name="closed" value="true" />
+      <created>1744481910604</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1744481910604</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fix: add default primary menu">
+      <option name="closed" value="true" />
+      <created>1744492638003</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1744492638003</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add idea to gitignore" />
+    <MESSAGE value="fix: add default primary menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: add default primary menu" />
   </component>
 </project>

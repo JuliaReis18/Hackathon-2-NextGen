@@ -1,9 +1,9 @@
 <main-menu></main-menu>
 
-<div class="container">
+<div class="container-fluid desktop-container">
     <div class="row">
-        <div class="col-12">
-            <div class="card shadow mb-4">
+        <div class="col-lg-10 col-md-12 mx-auto">
+            <div class="card shadow elevation-2 mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h3><i class="fas fa-gift me-2"></i> Prêmios</h3>
                     <div>
@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <ul class="nav nav-tabs mb-4" id="rewardsTab" role="tablist">
+                    <ul class="nav nav-tabs custom-tabs mb-4" id="rewardsTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="available-tab" data-bs-toggle="tab" data-bs-target="#available" type="button" role="tab" aria-controls="available" aria-selected="true">
                                 <i class="fas fa-store me-1"></i> Disponíveis
@@ -30,8 +30,8 @@
                         <!-- Available Rewards Tab -->
                         <div class="tab-pane fade show active" id="available" role="tabpanel" aria-labelledby="available-tab">
                             <div class="row">
-                                <div class="col-md-4 col-sm-6 mb-4" ng-repeat="reward in user.rewards">
-                                    <div class="card reward-card h-100 elevation-2">
+                                <div class="col-lg-3 col-md-4 col-sm-6 mb-4" ng-repeat="reward in user.rewards">
+                                    <div class="card reward-card h-100 elevation-2 hover-card">
                                         <div class="position-relative">
                                             <div class="reward-image-container">
                                                 <img ng-src="{{reward.image}}" class="card-img-top reward-image" alt="{{reward.title}}" 
@@ -42,8 +42,8 @@
                                             <span class="reward-cost elevation-1"><img src="img/coin.png" alt="Moedas" class="icon-img me-1" style="height: 16px;"> {{reward.cost}}</span>
                                         </div>
                                         <div class="card-body">
-                                            <h5 class="card-title">{{reward.title}}</h5>
-                                            <p class="card-text reward-description">{{reward.description}}</p>
+                                            <h5 class="card-title text-white">{{reward.title}}</h5>
+                                            <p class="card-text reward-description text-white">{{reward.description}}</p>
                                         </div>
                                         <div class="card-footer border-top" style="border-color: rgba(201, 149, 76, 0.2);">
                                             <button class="btn w-100" 
@@ -61,20 +61,20 @@
                             </div>
                             
                             <div class="text-center p-5" ng-if="user.rewards.length === 0">
-                                <i class="fas fa-gift fa-4x text-muted mb-3"></i>
-                                <h4>Nenhum prêmio disponível no momento</h4>
-                                <p>Novos prêmios serão adicionados em breve!</p>
+                                <i class="fas fa-gift fa-4x text-secondary mb-3"></i>
+                                <h4 class="text-white">Nenhum prêmio disponível no momento</h4>
+                                <p class="text-white">Novos prêmios serão adicionados em breve!</p>
                             </div>
                         </div>
                         
                         <!-- Redeemed Rewards Tab -->
                         <div class="tab-pane fade" id="redeemed" role="tabpanel" aria-labelledby="redeemed-tab">
                             <div class="row">
-                                <div class="col-md-6 col-sm-12 mb-4" ng-repeat="reward in user.redeemedRewards">
-                                    <div class="card h-100 elevation-2" style="border: 1px solid rgba(201, 149, 76, 0.3);">
+                                <div class="col-lg-4 col-md-6 col-sm-12 mb-4" ng-repeat="reward in user.redeemedRewards">
+                                    <div class="card h-100 elevation-2 hover-card" style="border: 1px solid rgba(201, 149, 76, 0.3);">
                                         <div class="card-header" style="border-bottom: 1px solid rgba(201, 149, 76, 0.2);">
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <h5 class="mb-0">{{reward.title}}</h5>
+                                                <h5 class="mb-0 text-white">{{reward.title}}</h5>
                                                 <span class="badge" style="background-color: var(--primary);">{{reward.redeemedDate | date:'dd/MM/yyyy'}}</span>
                                             </div>
                                         </div>
@@ -83,7 +83,7 @@
                                                 <img ng-src="{{reward.image}}" class="img-fluid rounded" style="max-height: 120px;" alt="{{reward.title}}" 
                                                      onerror="this.src='img/rewards/default-reward.jpg'">
                                             </div>
-                                            <p>{{reward.description}}</p>
+                                            <p class="text-white mb-3">{{reward.description}}</p>
                                             <div class="qr-code-container mb-3">
                                                 <div id="redeemedQRCode-{{$index}}" class="d-inline-block p-2 bg-white rounded"></div>
                                                 <script>
@@ -107,9 +107,9 @@
                             </div>
                             
                             <div class="text-center p-5" ng-if="user.redeemedRewards.length === 0">
-                                <i class="fas fa-history fa-4x text-muted mb-3"></i>
-                                <h4>Você ainda não resgatou nenhum prêmio</h4>
-                                <p>Resgate prêmios com suas moedas acumuladas!</p>
+                                <i class="fas fa-history fa-4x text-secondary mb-3"></i>
+                                <h4 class="text-white">Você ainda não resgatou nenhum prêmio</h4>
+                                <p class="text-white">Resgate prêmios com suas moedas acumuladas!</p>
                             </div>
                         </div>
                     </div>

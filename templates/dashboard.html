@@ -1,49 +1,51 @@
 <main-menu></main-menu>
 
-<div class="container">
+<div class="container-fluid desktop-container">
     <div class="row">
-        <div class="col-12">
+        <div class="col-lg-10 col-md-12 mx-auto">
             <div class="user-stats shadow">
                 <div class="row align-items-center">
-                    <div class="col-md-3 col-sm-12 text-center mb-3 mb-md-0">
-                        <img ng-src="{{user.userProfile.photo}}" alt="{{user.userProfile.name}}" class="user-avatar mb-2" onload="this.style.opacity='1'" onerror="this.src='img/default-avatar.png'" style="opacity: 0; transition: opacity 0.3s ease;">
-                        <h4>{{user.userProfile.name}}</h4>
-                        <div class="level-info mb-2">
-                            <span class="level-badge">
-                                <i class="fas fa-star me-1"></i> {{user.userProfile.levelProgress.currentLevel}}
-                            </span>
+                    <div class="col-lg-3 col-md-3 col-sm-12 text-center mb-3 mb-md-0">
+                        <div class="profile-card p-3">
+                            <img ng-src="{{user.userProfile.photo}}" alt="{{user.userProfile.name}}" class="user-avatar mb-3" onload="this.style.opacity='1'" onerror="this.src='img/default-avatar.png'" style="opacity: 0; transition: opacity 0.3s ease;">
+                            <h4 class="mb-2 text-white">{{user.userProfile.name}}</h4>
+                            <div class="level-info mb-3">
+                                <span class="level-badge">
+                                    <i class="fas fa-star me-1"></i> {{user.userProfile.levelProgress.currentLevel}}
+                                </span>
 
-                            <div class="level-details mt-1">
-                                <small class="text-muted">{{user.userProfile.levelProgress.currentLevelDescription}}</small>
-                            </div>
-                            <div class="next-level-info mt-2" ng-if="user.userProfile.levelProgress.nextLevel">
-                                <small>
-                                    <span class="text-primary">Próximo nível:</span> {{user.userProfile.levelProgress.nextLevel}}
-                                </small>
+                                <div class="level-details mt-2">
+                                    <small class="text-secondary">{{user.userProfile.levelProgress.currentLevelDescription}}</small>
+                                </div>
+                                <div class="next-level-info mt-2" ng-if="user.userProfile.levelProgress.nextLevel">
+                                    <small>
+                                        <span class="text-primary">Próximo nível:</span> {{user.userProfile.levelProgress.nextLevel}}
+                                    </small>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-9 col-sm-12">
+                    <div class="col-lg-9 col-md-9 col-sm-12">
                         <div class="row">
                             <div class="col-md-6 col-sm-12 mb-3">
-                                <div class="card h-100">
+                                <div class="card h-100 elevation-2 stats-card">
                                     <div class="card-body">
-                                        <h5 class="card-title">
+                                        <h5 class="card-title text-white">
                                             <img src="img/coin.png" alt="Moedas" class="icon-img me-2"> Moedas
                                         </h5>
-                                        <h2 class="display-4">{{user.userProfile.coins}}</h2>
-                                        <p class="text-muted">Moedas disponíveis para resgatar prêmios</p>
+                                        <h2 class="display-4 text-white">{{user.userProfile.coins}}</h2>
+                                        <p class="text-secondary">Moedas disponíveis para resgatar prêmios</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12 mb-3">
-                                <div class="card h-100">
+                                <div class="card h-100 elevation-2 stats-card">
                                     <div class="card-body">
-                                        <h5 class="card-title">
+                                        <h5 class="card-title text-white">
                                             <img src="img/xp.png" alt="XP" class="icon-img me-2"> Cafeína XP
                                         </h5>
-                                        <h2 class="display-4">{{user.userProfile.xp}}</h2>
-                                        <p class="text-muted">Pontos de cafeína acumulados</p>
+                                        <h2 class="display-4 text-white">{{user.userProfile.xp}}</h2>
+                                        <p class="text-secondary">Pontos de cafeína acumulados</p>
                                     </div>
                                 </div>
                             </div>
@@ -55,8 +57,8 @@
     </div>
 
     <div class="row mt-4">
-        <div class="col-12">
-            <div class="card shadow">
+        <div class="col-lg-10 col-md-12 mx-auto">
+            <div class="card shadow elevation-2">
                 <div class="card-header">
                     <h4><i class="fas fa-trophy me-2"></i> Desafio Principal</h4>
                 </div>
@@ -96,8 +98,8 @@
     </div>
 
     <div class="row mt-4">
-        <div class="col-md-12 col-sm-12 mb-4">
-            <div class="card shadow h-100">
+        <div class="col-lg-10 col-md-12 mx-auto">
+            <div class="card shadow elevation-2 h-100">
                 <div class="card-header">
                     <h4><i class="fas fa-gift me-2"></i> Prêmios Disponíveis</h4>
                 </div>
@@ -107,8 +109,8 @@
                         <p>Nenhum prêmio disponível no momento.</p>
                     </div>
                     <div class="row">
-                        <div class="col-md-3 col-sm-6 mb-3" ng-repeat="reward in user.rewards | limitTo:4">
-                            <div class="card reward-card h-100 elevation-2" ng-click="user.redeemReward(reward)">
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" ng-repeat="reward in user.rewards | limitTo:8">
+                            <div class="card reward-card h-100 elevation-2 hover-card" ng-click="user.redeemReward(reward)">
                                 <div class="position-relative">
                                     <div class="reward-image-container">
                                         <img ng-src="{{reward.image}}" class="card-img-top reward-image" alt="{{reward.title}}" 
@@ -125,8 +127,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="text-center mt-3">
-                        <button ng-click="user.navigateTo('/rewards')" class="btn btn-outline-primary">
+                    <div class="text-center mt-4">
+                        <button ng-click="user.navigateTo('/rewards')" class="btn btn-outline-primary btn-lg">
                             <i class="fas fa-gift me-1"></i> Ver todos os prêmios
                         </button>
                     </div>

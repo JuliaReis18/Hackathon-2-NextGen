@@ -762,7 +762,66 @@ h1, h2, h3, h4, h5, h6 {
   padding-right: 16px;
 }
 
+/* Desktop Layout Enhancements */
+.desktop-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px 16px;
+}
+
+.profile-card {
+  background-color: rgba(50, 38, 30, 0.5);
+  border-radius: 8px;
+  border: 1px solid rgba(201, 149, 76, 0.1);
+}
+
+.stats-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+.hover-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
 /* Media Queries */
+@media (min-width: 992px) {
+  .user-avatar {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .display-4 {
+    font-size: 3rem;
+  }
+  
+  .desktop-container {
+    padding: 15px 10px 70px;
+  }
+  
+  .card-header {
+    padding: 18px 25px;
+  }
+  
+  .card-body {
+    padding: 25px;
+  }
+  
+  .btn-lg {
+    padding: 12px 24px;
+    font-size: 1.1rem;
+  }
+}
+
 @media (max-width: 768px) {
   .login-card {
     margin: 0 auto;

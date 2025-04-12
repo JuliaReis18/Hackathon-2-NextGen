@@ -1,8 +1,8 @@
 <main-menu></main-menu>
 
-<div class="container">
+<div class="container-fluid desktop-container">
     <div class="row justify-content-center">
-        <div class="col-md-8 col-sm-12">
+        <div class="col-lg-8 col-md-10 col-sm-12">
             <div class="card shadow mb-4 elevation-2">
                 <div class="card-header">
                     <h3><i class="fas fa-user-circle me-2"></i> Minha Conta</h3>
@@ -26,10 +26,12 @@
                         <div class="tab-pane fade show active" id="edit-profile" role="tabpanel" aria-labelledby="edit-profile-tab">
                             <form ng-submit="user.editProfile(user.userProfile)">
                                 <div class="text-center mb-4">
-                                    <img ng-src="{{user.userProfile.photo}}" alt="{{user.userProfile.name}}" class="user-avatar mb-3" 
-                                         onload="this.style.opacity='1'" 
-                                         onerror="this.src='img/default-avatar.png'" 
-                                         style="opacity: 0; transition: opacity 0.3s ease;">
+                                    <div class="profile-photo-container mx-auto mb-3">
+                                        <img ng-src="{{user.userProfile.photo}}" alt="{{user.userProfile.name}}" class="user-avatar" 
+                                             onload="this.style.opacity='1'" 
+                                             onerror="this.src='img/default-avatar.png'" 
+                                             style="opacity: 0; transition: opacity 0.3s ease;">
+                                    </div>
                                     <div>
                                         <button type="button" class="btn btn-outline-primary btn-sm elevation-1">
                                             <i class="fas fa-camera me-1"></i> Alterar Foto
@@ -61,9 +63,9 @@
                                     </div>
                                 </div>
                                 
-                                <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-primary elevation-1">
-                                        <i class="fas fa-save me-1"></i> Salvar Alterações
+                                <div class="d-grid gap-2 mt-4">
+                                    <button type="submit" class="btn btn-primary btn-lg elevation-1">
+                                        <i class="fas fa-save me-2"></i> Salvar Alterações
                                     </button>
                                 </div>
                             </form>
@@ -97,9 +99,9 @@
                                     </div>
                                 </div>
                                 
-                                <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-primary elevation-1">
-                                        <i class="fas fa-key me-1"></i> Alterar Senha
+                                <div class="d-grid gap-2 mt-4">
+                                    <button type="submit" class="btn btn-primary btn-lg elevation-1">
+                                        <i class="fas fa-key me-2"></i> Alterar Senha
                                     </button>
                                 </div>
                             </form>
@@ -113,10 +115,16 @@
                     <h3><i class="fas fa-sign-out-alt me-2"></i> Sair da Conta</h3>
                 </div>
                 <div class="card-body">
-                    <p class="text-white">Deseja encerrar sua sessão no programa de fidelidade?</p>
-                    <button class="btn btn-outline-danger elevation-1" ng-click="user.logout()">
-                        <i class="fas fa-sign-out-alt me-1"></i> Sair
-                    </button>
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <p class="lead mb-0">Deseja encerrar sua sessão no Programa de Fidelidade?</p>
+                        </div>
+                        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                            <button class="btn btn-danger btn-lg elevation-1" ng-click="user.logout()">
+                                <i class="fas fa-sign-out-alt me-2"></i> Sair
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
