@@ -11,6 +11,7 @@ A **Literal Café** é onde o café especial encontra a cultura.
 Mais do que uma cafeteria, é um ponto de encontro para **estudantes**, **profissionais autônomos** e **amantes de café** entre 20 e 40 anos, que buscam um espaço inspirador para trabalhar, ler e viver experiências únicas.  
 
 Com ambientes de **coworking**, **eventos literários**, cafés artesanais, pães e bolos fresquinhos, a Literal cria conexões reais entre pessoas e ideias.  
+📸 Instagram: [@literalcafe](https://www.instagram.com/literalcafe)
 
 ---
 
@@ -45,7 +46,6 @@ Tudo isso sem perder a essência cultural e acolhedora que define a Literal Caf�
 
 ## 🛠️ Tecnologias Utilizadas
 
-
 - HTML, CSS, JavaScript, AngularJS, Bootstrap
 - Git & GitHub  
 - Plataforma da Funifier (Funifier Studio)
@@ -59,8 +59,11 @@ Tudo isso sem perder a essência cultural e acolhedora que define a Literal Caf�
 
 Agradecemos à **Funifier**, ao programa **NextGen**, pela oportunidade de explorar ideias criativas e desenvolver soluções reais com impacto positivo.
 
+
 ---
 
 ## ☕ Literal Café: mais que café, uma experiência.  
 
 **Expresso Devs** – Gamificando conexões culturais.
+
+### Feito com 💛 por: **Expresso Devs**
