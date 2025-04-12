@@ -54,7 +54,7 @@ Desenvolvemos um aplicativo web de fidelidade gamificado para a Literal Café, q
 
 ## 🛠️ Tecnologias Utilizadas
 
-> *(Edite com as reais, ou posso te ajudar a adaptar depois)*  
+ 
 - HTML, CSS, JavaScript  
 - Git & GitHub  
 - Plataforma da Funifier
