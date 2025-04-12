@@ -1,0 +1,97 @@
+<main-menu></main-menu>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                    <h3><i class="fas fa-gift me-2"></i> Prêmios</h3>
+                    <div>
+                        <span class="badge bg-warning text-dark p-2">
+                            <i class="fas fa-coins me-1"></i> {{user.userProfile.coins}} moedas
+                        </span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <ul class="nav nav-tabs mb-4" id="rewardsTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="available-tab" data-bs-toggle="tab" data-bs-target="#available" type="button" role="tab" aria-controls="available" aria-selected="true">
+                                <i class="fas fa-store me-1"></i> Disponíveis
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="redeemed-tab" data-bs-toggle="tab" data-bs-target="#redeemed" type="button" role="tab" aria-controls="redeemed" aria-selected="false">
+                                <i class="fas fa-history me-1"></i> Resgatados
+                            </button>
+                        </li>
+                    </ul>
+                    
+                    <div class="tab-content" id="rewardsTabContent">
+                        <!-- Available Rewards Tab -->
+                        <div class="tab-pane fade show active" id="available" role="tabpanel" aria-labelledby="available-tab">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-6 mb-4" ng-repeat="reward in user.rewards">
+                                    <div class="card reward-card h-100">
+                                        <div class="position-relative">
+                                            <img ng-src="{{reward.image}}" class="card-img-top reward-image" alt="{{reward.title}}">
+                                            <span class="reward-cost"><i class="fas fa-coins me-1 coin-icon"></i> {{reward.cost}}</span>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{reward.title}}</h5>
+                                            <p class="card-text">{{reward.description}}</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-primary w-100" ng-click="user.redeemReward(reward)" ng-disabled="user.userProfile.coins < reward.cost">
+                                                <i class="fas fa-shopping-cart me-1"></i> Resgatar
+                                            </button>
+                                            <small class="text-danger d-block text-center mt-2" ng-if="user.userProfile.coins < reward.cost">
+                                                Você precisa de mais {{reward.cost - user.userProfile.coins}} moedas
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center p-5" ng-if="user.rewards.length === 0">
+                                <i class="fas fa-gift fa-4x text-muted mb-3"></i>
+                                <h4>Nenhum prêmio disponível no momento</h4>
+                                <p>Novos prêmios serão adicionados em breve!</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Redeemed Rewards Tab -->
+                        <div class="tab-pane fade" id="redeemed" role="tabpanel" aria-labelledby="redeemed-tab">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12 mb-4" ng-repeat="reward in user.redeemedRewards">
+                                    <div class="card h-100">
+                                        <div class="card-header bg-success text-white">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5 class="mb-0">{{reward.title}}</h5>
+                                                <span>{{reward.redeemedDate | date:'dd/MM/yyyy'}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <img ng-src="{{reward.image}}" class="img-fluid mb-3" style="max-height: 100px;" alt="{{reward.title}}">
+                                            <p>{{reward.description}}</p>
+                                            <div class="qr-code-container mb-3">
+                                                <!-- In a real app, we would generate an actual QR code image -->
+                                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{reward.qrCode}}" alt="QR Code" class="img-fluid">
+                                            </div>
+                                            <p class="mb-0"><strong>Código:</strong> {{reward.qrCode}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center p-5" ng-if="user.redeemedRewards.length === 0">
+                                <i class="fas fa-history fa-4x text-muted mb-3"></i>
+                                <h4>Você ainda não resgatou nenhum prêmio</h4>
+                                <p>Resgate prêmios com suas moedas acumuladas!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

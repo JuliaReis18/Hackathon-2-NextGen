@@ -27,13 +27,19 @@ Tudo isso sem perder a essência cultural e acolhedora que define a Literal Caf�
 
 ## 💡 Nossa Solução
 
-
+Desenvolvemos um aplicativo web de fidelidade gamificado para a Literal Café, que permite aos clientes acumular moedas a cada compra, acompanhar seu progresso e resgatar prêmios exclusivos. A solução utiliza a API da Funifier para gerenciar os pontos, níveis e recompensas, criando uma experiência envolvente que incentiva o retorno dos clientes.
 
 ---
 
 ## ✨ Funcionalidades
 
-
+### MVP 1.0
+- **Login e Cadastro**: Acesso com CPF e senha, cadastro de novos usuários
+- **Status do Jogador**: Visualização de XP, moedas e nível atual
+- **Desafios**: Sistema "A cada R$1 em compras = 1 moeda"
+- **Prêmios**: Catálogo de recompensas disponíveis para resgate
+- **QR Code**: Validação de prêmios resgatados via QR Code
+- **Perfil**: Edição de dados pessoais e alteração de senha
 
 ---
 
