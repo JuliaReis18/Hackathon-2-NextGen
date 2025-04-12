@@ -27,12 +27,9 @@ Tudo isso sem perder a essência cultural e acolhedora que define a Literal Caf�
 
 ## 💡 Nossa Solução
 
-
-
----
-
-## ✨ Funcionalidades
-
+- Criar um programa de fidelidade, no qual o cliente ao comprar R$1,00 na cafeteria, ganha 1 moeda e 1xp.
+- Essas moedas podem ser trocadas por produtos verdadeiros na cafeteria.
+- Os pontos XP fazem o usuário subir de nivel no programa de fidelidade. 
 
 
 ---
@@ -48,10 +45,10 @@ Tudo isso sem perder a essência cultural e acolhedora que define a Literal Caf�
 
 ## 🛠️ Tecnologias Utilizadas
 
-> *(Edite com as reais, ou posso te ajudar a adaptar depois)*  
-- HTML, CSS, JavaScript  
+
+- HTML, CSS, JavaScript, AngularJS, Bootstrap
 - Git & GitHub  
-- Plataforma da Funifier
+- Plataforma da Funifier (Funifier Studio)
 
 ---
 
@@ -60,9 +57,10 @@ Tudo isso sem perder a essência cultural e acolhedora que define a Literal Caf�
 
 ## 📚 Agradecimentos
 
-Agradecemos à **Funifier**, ao programa **NextGen**, e à equipe da **Literal Café** pela oportunidade de explorar ideias criativas e desenvolver soluções reais com impacto positivo.
+Agradecemos à **Funifier**, ao programa **NextGen**, pela oportunidade de explorar ideias criativas e desenvolver soluções reais com impacto positivo.
 
 ---
 
 ## ☕ Literal Café: mais que café, uma experiência.  
+
 **Expresso Devs** – Gamificando conexões culturais.
