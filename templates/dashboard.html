@@ -6,7 +6,7 @@
             <div class="user-stats shadow">
                 <div class="row align-items-center">
                     <div class="col-md-3 col-sm-12 text-center mb-3 mb-md-0">
-                        <img ng-src="{{user.userProfile.photo}}" alt="{{user.userProfile.name}}" class="user-avatar mb-2">
+                        <img ng-src="{{user.userProfile.photo}}" alt="{{user.userProfile.name}}" class="user-avatar mb-2" onload="this.style.opacity='1'" onerror="this.src='img/default-avatar.png'" style="opacity: 0; transition: opacity 0.3s ease;">
                         <h4>{{user.userProfile.name}}</h4>
                         <span class="level-badge">
                             <i class="fas fa-star me-1"></i> Nível {{user.userProfile.level}}
@@ -18,7 +18,7 @@
                                 <div class="card h-100">
                                     <div class="card-body">
                                         <h5 class="card-title">
-                                            <i class="fas fa-coins me-2 coin-icon"></i> Moedas
+                                            <img src="img/coin.png" alt="Moedas" class="icon-img me-2"> Moedas
                                         </h5>
                                         <h2 class="display-4">{{user.userProfile.coins}}</h2>
                                         <p class="text-muted">Moedas disponíveis para resgatar prêmios</p>
@@ -29,10 +29,10 @@
                                 <div class="card h-100">
                                     <div class="card-body">
                                         <h5 class="card-title">
-                                            <i class="fas fa-chart-line me-2 xp-icon"></i> Experiência
+                                            <img src="img/xp.png" alt="XP" class="icon-img me-2"> Cafeína XP
                                         </h5>
                                         <h2 class="display-4">{{user.userProfile.xp}}</h2>
-                                        <p class="text-muted">Pontos de experiência acumulados</p>
+                                        <p class="text-muted">Pontos de cafeína acumulados</p>
                                     </div>
                                 </div>
                             </div>
@@ -46,23 +46,36 @@
     <div class="row mt-4">
         <div class="col-12">
             <div class="card shadow">
-                <div class="card-header bg-dark text-white">
+                <div class="card-header">
                     <h4><i class="fas fa-trophy me-2"></i> Desafio Principal</h4>
                 </div>
                 <div class="card-body">
-                    <div class="challenge-card" ng-repeat="challenge in user.challenges">
+                    <div class="challenge-card elevation-2" ng-repeat="challenge in user.challenges">
                         <div class="d-flex align-items-center mb-3">
-                            <div class="me-3">
-                                <i class="fas {{challenge.icon}} fa-2x text-primary"></i>
+                            <div class="challenge-icon me-3">
+                                <i class="fas {{challenge.icon}} fa-2x"></i>
                             </div>
-                            <div>
+                            <div class="challenge-info">
                                 <h5 class="mb-1">{{challenge.title}}</h5>
-                                <p class="mb-0">{{challenge.description}}</p>
+                                <p class="mb-2">{{challenge.description}}</p>
+                                <div class="challenge-rewards">
+                                    <div class="reward-badge" ng-if="challenge.xpPoints > 0">
+                                        <img src="img/xp.png" alt="XP" class="icon-img me-1" style="height: 18px;"> 
+                                        <span>{{challenge.xpPoints}} XP</span>
+                                    </div>
+                                    <div class="reward-badge" ng-if="challenge.moedaPoints > 0">
+                                        <img src="img/coin.png" alt="Moedas" class="icon-img me-1" style="height: 18px;"> 
+                                        <span>{{challenge.moedaPoints}} {{challenge.operation === 'valor' ? 'por real' : 'moedas'}}</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="progress" style="height: 25px;">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                {{challenge.progress}} moedas acumuladas
+                            <div class="progress-bar" role="progressbar" 
+                                 ng-style="{'width': challenge.target ? (challenge.progress / challenge.target * 100) + '%' : '100%'}" 
+                                 aria-valuenow="{{challenge.progress}}" aria-valuemin="0" aria-valuemax="{{challenge.target || 100}}">
+                                <span ng-if="challenge.progress > 0">{{challenge.progress}} moedas acumuladas</span>
+                                <span ng-if="challenge.progress === 0">Participe agora</span>
                             </div>
                         </div>
                     </div>
@@ -86,7 +99,7 @@
                             <div class="card reward-card h-100" ng-click="user.redeemReward(reward)">
                                 <div class="position-relative">
                                     <img ng-src="{{reward.image}}" class="card-img-top reward-image" alt="{{reward.title}}">
-                                    <span class="reward-cost"><i class="fas fa-coins me-1 coin-icon"></i> {{reward.cost}}</span>
+                                    <span class="reward-cost"><img src="img/coin.png" alt="Moedas" class="icon-img me-1" style="height: 16px;"> {{reward.cost}}</span>
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">{{reward.title}}</h5>

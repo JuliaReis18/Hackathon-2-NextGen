@@ -1,69 +1,593 @@
-/* Estilos adicionais para o Literal Café */
-body {
-  background-color: #f5f5f5;
-  font-family: "Roboto", sans-serif;
+/* Literal Café - Material Design Theme */
+
+:root {
+  /* Paleta de Cores - Estilo Café Premium */
+  --bg-primary: #1D140F;      /* Fundo Principal */
+  --primary: #C9954C;         /* Dourado Suave - Primária / Botões / Destaques */
+  --secondary: #D8C8B4;       /* Bege Neutro - Texto Secundário / Ícones */
+  --input-bg: #2B211B;        /* Marrom Escuro Translúcido - Campos de entrada */
+  --text-primary: #F5F0E8;    /* Texto claro sobre fundo escuro - Melhorado para contraste */
+  --text-contrast: #0D0603;   /* Preto Café - Texto Principal / Contraste */
+  --error: #FF5252;           /* Vermelho para erros - Mais brilhante */
+  --success: #69F0AE;         /* Verde para sucesso - Mais brilhante */
+  --card-bg: #32261E;         /* Fundo dos cards - Mais claro para contraste */
+  --card-header-bg: #3E2E23;  /* Fundo do cabeçalho dos cards - Ainda mais claro */
+  --divider: rgba(216, 200, 180, 0.18); /* Divisores com opacidade aumentada */
 }
 
+/* Base Styles */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Material Design Elevation */
+.elevation-1 {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.elevation-2 {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.elevation-3 {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+.display-4 {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* Override Bootstrap's text-muted for better contrast */
+.text-muted {
+  color: #B8A99A !important; /* Lighter color for better contrast */
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+/* Card titles and subtitles with lighter colors */
+.card-title {
+  color: #FFFFFF !important;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.card h5 {
+  color: #FFFFFF !important;
+}
+
+.card h4 {
+  color: #FFFFFF !important;
+}
+
+.card-text {
+  color: var(--text-primary);
+}
+
+/* Cards */
 .card {
-  border-radius: 10px;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  border: 1px solid rgba(201, 149, 76, 0.15);
   overflow: hidden;
+  margin-bottom: 20px;
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  border-color: rgba(201, 149, 76, 0.3);
 }
 
 .card-header {
-  background: linear-gradient(135deg, #6a3805 0%, #4a2903 100%);
-  padding: 20px 0;
+  background-color: var(--card-header-bg);
+  border-bottom: 1px solid var(--divider);
+  padding: 16px 20px;
+}
+
+.card-header h4, .card-header h3 {
+  margin: 0;
+  color: #FFFFFF;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+/* Buttons */
+.btn {
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding: 8px 16px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
 }
 
 .btn-primary {
-  background-color: #6a3805;
-  border-color: #4a2903;
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--text-contrast);
 }
 
 .btn-primary:hover,
 .btn-primary:focus {
-  background-color: #4a2903;
-  border-color: #3a2002;
+  background-color: #D6A459;
+  border-color: #D6A459;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
-.btn-success {
-  background-color: #2b5f3a;
-  border-color: #1a422a;
+.btn-outline-primary {
+  color: var(--primary);
+  border-color: var(--primary);
+  background-color: transparent;
 }
 
-.btn-success:hover,
-.btn-success:focus {
-  background-color: #1a422a;
-  border-color: #0a301a;
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+  background-color: var(--primary);
+  color: var(--text-contrast);
 }
 
-/* Estilo para campos com erros */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Forms */
+.form-control {
+  background-color: rgba(43, 33, 27, 0.8);
+  border: 1px solid rgba(201, 149, 76, 0.2);
+  border-radius: 4px;
+  color: var(--text-primary);
+  padding: 10px 16px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  background-color: rgba(43, 33, 27, 0.9);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(201, 149, 76, 0.25);
+  color: var(--secondary);
+}
+
+.form-control::placeholder {
+  color: rgba(216, 200, 180, 0.5);
+}
+
 .input-error {
-  border-color: #dc3545;
+  border-color: var(--error);
 }
 
-/* Animação de carregamento suave */
+.form-label {
+  color: var(--secondary);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+/* Navigation */
+.navbar {
+  background-color: var(--bg-primary);
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+  border-bottom: 1px solid var(--divider);
+}
+
+.navbar-brand img {
+  height: 40px;
+  border-radius: 100%;
+  border: 2px solid var(--primary);
+  padding: 3px;
+  background-color: rgba(201, 149, 76, 0.1);
+}
+
+.nav-link {
+  color: var(--secondary);
+  font-weight: 500;
+  padding: 10px 16px;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--primary);
+}
+
+/* User Stats Card */
+.user-stats {
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(201, 149, 76, 0.15);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid var(--primary);
+  object-fit: cover;
+}
+
+.level-badge {
+  background-color: rgba(201, 149, 76, 0.2);
+  color: var(--primary);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+  display: inline-block;
+  margin-top: 8px;
+}
+
+/* Icons */
+.icon-img {
+  height: 24px;
+  width: auto;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.card-title .icon-img {
+  height: 24px;
+  margin-top: -3px;
+}
+
+/* Legacy icon styles (kept for compatibility) */
+.coin-icon {
+  color: #FFD700;
+}
+
+.xp-icon {
+  color: #81C784;
+}
+
+/* Progress Bar */
+.progress {
+  background-color: rgba(29, 20, 15, 0.7);
+  border-radius: 4px;
+  height: 8px;
+  margin: 10px 0;
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.4);
+}
+
+.progress-bar {
+  background-color: var(--primary);
+  transition: width 0.6s ease;
+  color: var(--text-contrast);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Challenge Cards */
+.challenge-card {
+  background-color: rgba(62, 46, 35, 0.9);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-left: 4px solid var(--primary);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+.challenge-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+.challenge-icon {
+  background-color: var(--primary);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-contrast);
+}
+
+.challenge-info {
+  flex: 1;
+}
+
+.challenge-info p {
+  color: #FFFFFF;
+  margin-bottom: 10px;
+}
+
+.challenge-rewards {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.reward-badge {
+  background-color: rgba(201, 149, 76, 0.2);
+  border-radius: 20px;
+  padding: 4px 12px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--primary);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+/* Reward Cards */
+.reward-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reward-card:hover {
+  transform: translateY(-5px);
+}
+
+.reward-image {
+  height: 140px;
+  object-fit: cover;
+}
+
+.reward-cost {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(13, 6, 3, 0.8);
+  color: var(--primary);
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* Animations */
 .fa-spin {
   animation-duration: 1s;
 }
 
-/* Transição suave entre formulários */
+/* Transitions */
 .card-body > div {
   transition: opacity 0.3s ease;
 }
 
-/* Estilo para botões desabilitados */
-.btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
+/* List Groups */
+.list-group-item {
+  background-color: rgba(62, 46, 35, 0.8);
+  border-color: var(--divider);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease;
 }
 
-/* Ajuste para dispositivos móveis */
+.list-group-item:hover {
+  background-color: rgba(43, 33, 27, 0.9);
+}
+
+.list-group-item-action:hover {
+  color: var(--primary);
+}
+
+/* App Container */
+.app-container {
+  padding-bottom: 60px; /* Space for mobile navigation */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* App Header */
+.app-header {
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--divider);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo-img {
+  height: 40px;
+  margin-right: 10px;
+  border-radius: 100%;
+  border: 2px solid var(--primary);
+  padding: 3px;
+  background-color: rgba(201, 149, 76, 0.1);
+}
+
+/* Container adjustments for mobile app feel */
+.container {
+  padding: 16px;
+  max-width: 100%;
+}
+
+/* Mobile Bottom Navigation */
+.mobile-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--bg-primary);
+  border-top: 1px solid var(--divider);
+  padding: 8px 0;
+  z-index: 1000;
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--secondary);
+  text-decoration: none;
+  padding: 8px 0;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+  width: 25%;
+  text-align: center;
+}
+
+.mobile-nav-item i {
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+}
+
+.mobile-nav-item.active {
+  color: var(--primary);
+}
+
+.mobile-nav-item:hover {
+  color: var(--primary);
+}
+
+/* Hide mobile nav on larger screens */
+@media (min-width: 992px) {
+  .mobile-nav {
+    display: none;
+  }
+  
+  .app-container {
+    padding-bottom: 0;
+  }
+}
+
+/* Login Page Styles */
+.login-card {
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 40px auto;
+  max-width: 450px;
+  border: 1px solid rgba(201, 149, 76, 0.2);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.login-logo {
+  height: 80px;
+  margin-bottom: 10px;
+  border-radius: 100%;
+  border: 3px solid var(--primary);
+  padding: 5px;
+  background-color: rgba(201, 149, 76, 0.1);
+}
+
+.login-title {
+  color: var(--primary);
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+.login-body {
+  padding: 20px 30px;
+}
+
+.material-input {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.material-input .input-icon {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  color: var(--secondary);
+  opacity: 0.7;
+}
+
+.material-input .form-control {
+  padding-left: 40px;
+  height: 48px;
+}
+
+.material-btn {
+  height: 48px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.alert-message {
+  background-color: rgba(229, 115, 115, 0.2);
+  color: #E57373;
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.alert-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: none;
+  border: none;
+  color: #E57373;
+  cursor: pointer;
+}
+
+.toggle-form-text {
+  color: var(--secondary);
+}
+
+.toggle-form-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.toggle-form-link:hover {
+  color: #D6A459;
+  text-decoration: underline;
+}
+
+/* Mobile Adjustments */
 @media (max-width: 576px) {
   .card {
-    margin: 10px;
+    margin: 10px 0;
   }
-
+  
   .card-body {
     padding: 15px;
+  }
+  
+  .container {
+    padding: 10px;
+  }
+  
+  .user-avatar {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .login-card {
+    margin: 20px 10px;
+  }
+  
+  .login-body {
+    padding: 15px 20px;
   }
 }

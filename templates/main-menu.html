@@ -1,40 +1,63 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4" ng-if="menu.isAuthenticated()">
-    <div class="container">
-        <a class="navbar-brand" href="#/dashboard">
-            <img src="img/logo.png" alt="Literal Café Logo" height="30" class="d-inline-block align-text-top me-2">
-            Literal Café
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" ng-class="{ active: menu.isActive('/dashboard') }" href="#/dashboard">
-                        <i class="fas fa-home"></i> Status
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" ng-class="{ active: menu.isActive('/challenges') }" href="#/challenges">
-                        <i class="fas fa-trophy"></i> Desafios
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" ng-class="{ active: menu.isActive('/rewards') }" href="#/rewards">
-                        <i class="fas fa-gift"></i> Prêmios
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" ng-class="{ active: menu.isActive('/profile') }" href="#/profile">
-                        <i class="fas fa-user-circle"></i> Conta
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" ng-click="menu.logout()">
-                        <i class="fas fa-sign-out-alt"></i> Sair
-                    </a>
-                </li>
-            </ul>
-        </div>
+<header class="app-header elevation-2" ng-if="menu.isAuthenticated()">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid px-2">
+                <a class="navbar-brand" href="#/dashboard">
+                    <img src="img/logo.png" alt="Literal Café Logo" class="logo-img">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars" style="color: var(--primary);"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" ng-class="{ active: menu.isActive('/dashboard') }" href="#/dashboard">
+                                <i class="fas fa-home me-2"></i> Status
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" ng-class="{ active: menu.isActive('/challenges') }" href="#/challenges">
+                                <i class="fas fa-trophy me-2"></i> Desafios
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" ng-class="{ active: menu.isActive('/rewards') }" href="#/rewards">
+                                <i class="fas fa-gift me-2"></i> Prêmios
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" ng-class="{ active: menu.isActive('/profile') }" href="#/profile">
+                                <i class="fas fa-user-circle me-2"></i> Conta
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" ng-click="menu.logout()">
+                                <i class="fas fa-sign-out-alt me-2"></i> Sair
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </div>
-</nav>
+</header>
+
+<!-- Mobile Bottom Navigation -->
+<div class="mobile-nav elevation-3" ng-if="menu.isAuthenticated()">
+    <a class="mobile-nav-item" ng-class="{ active: menu.isActive('/dashboard') }" href="#/dashboard">
+        <i class="fas fa-home"></i>
+        <span>Status</span>
+    </a>
+    <a class="mobile-nav-item" ng-class="{ active: menu.isActive('/challenges') }" href="#/challenges">
+        <i class="fas fa-trophy"></i>
+        <span>Desafios</span>
+    </a>
+    <a class="mobile-nav-item" ng-class="{ active: menu.isActive('/rewards') }" href="#/rewards">
+        <i class="fas fa-gift"></i>
+        <span>Prêmios</span>
+    </a>
+    <a class="mobile-nav-item" ng-class="{ active: menu.isActive('/profile') }" href="#/profile">
+        <i class="fas fa-user-circle"></i>
+        <span>Conta</span>
+    </a>
+</div>

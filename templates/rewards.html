@@ -8,7 +8,7 @@
                     <h3><i class="fas fa-gift me-2"></i> Prêmios</h3>
                     <div>
                         <span class="badge bg-warning text-dark p-2">
-                            <i class="fas fa-coins me-1"></i> {{user.userProfile.coins}} moedas
+                            <img src="img/coin.png" alt="Moedas" class="icon-img me-1" style="height: 16px;"> {{user.userProfile.coins}} moedas
                         </span>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                                     <div class="card reward-card h-100">
                                         <div class="position-relative">
                                             <img ng-src="{{reward.image}}" class="card-img-top reward-image" alt="{{reward.title}}">
-                                            <span class="reward-cost"><i class="fas fa-coins me-1 coin-icon"></i> {{reward.cost}}</span>
+                                            <span class="reward-cost"><img src="img/coin.png" alt="Moedas" class="icon-img me-1" style="height: 16px;"> {{reward.cost}}</span>
                                         </div>
                                         <div class="card-body">
                                             <h5 class="card-title">{{reward.title}}</h5>

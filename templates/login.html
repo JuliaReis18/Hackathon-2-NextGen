@@ -1,35 +1,35 @@
 <div class="row justify-content-center">
   <div class="col-md-6 col-sm-10">
-    <div class="card mt-5 shadow">
-      <div class="card-header bg-dark text-white text-center">
-        <h2>Literal Café</h2>
-        <p class="mb-0">Programa de Fidelidade</p>
+    <div class="login-card elevation-3">
+      <div class="text-center mb-4 pt-4">
+        <img src="img/logo.png" alt="Literal Café Logo" class="login-logo mb-3">
+        <h2 class="login-title">Programa de Fidelidade</h2>
       </div>
-      <div class="card-body p-4">
+      <div class="login-body p-4">
         <!-- Login Form -->
         <div ng-show="auth.isLogin">
           <h3 class="text-center mb-4">Login</h3>
 
           <div
-            class="alert alert-danger"
+            class="alert-message"
             ng-if="auth.errorMessage"
             role="alert"
           >
             <i class="fas fa-exclamation-circle me-2"></i> {{auth.errorMessage}}
             <button
               type="button"
-              class="btn-close float-end"
+              class="alert-close"
               ng-click="auth.errorMessage = ''"
-            ></button>
+            >
+              <i class="fas fa-times"></i>
+            </button>
           </div>
 
           <form ng-submit="auth.login()">
-            <div class="mb-3">
+            <div class="mb-4">
               <label for="cpf" class="form-label">CPF</label>
-              <div class="input-group">
-                <span class="input-group-text"
-                  ><i class="fas fa-id-card"></i
-                ></span>
+              <div class="material-input">
+                <i class="fas fa-id-card input-icon"></i>
                 <input
                   type="text"
                   class="form-control"
@@ -41,12 +41,10 @@
               </div>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-4">
               <label for="password" class="form-label">Senha</label>
-              <div class="input-group">
-                <span class="input-group-text"
-                  ><i class="fas fa-lock"></i
-                ></span>
+              <div class="material-input">
+                <i class="fas fa-lock input-icon"></i>
                 <input
                   type="password"
                   class="form-control"
@@ -58,10 +56,10 @@
               </div>
             </div>
 
-            <div class="d-grid gap-2">
+            <div class="d-grid gap-2 mt-4">
               <button
                 type="submit"
-                class="btn btn-primary btn-lg"
+                class="btn btn-primary btn-lg material-btn"
                 ng-disabled="auth.isLoading"
               >
                 <i class="fas fa-spinner fa-spin" ng-show="auth.isLoading"></i>
@@ -71,13 +69,13 @@
             </div>
           </form>
 
-          <div class="text-center mt-3">
-            <p>
+          <div class="text-center mt-4">
+            <p class="toggle-form-text">
               Não tem uma conta?
               <a
                 href="javascript:void(0);"
                 ng-click="auth.toggleForm()"
-                class="text-decoration-none"
+                class="toggle-form-link"
                 >Cadastre-se</a
               >
             </p>

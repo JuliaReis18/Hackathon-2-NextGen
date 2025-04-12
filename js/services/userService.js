@@ -30,17 +30,58 @@
         function getUserProfile() {
             var deferred = $q.defer();
             
-            // For MVP, we'll use mock data
-            // In a real scenario, we would make an API call to Funifier
-            var mockProfile = {
-                name: 'João Silva',
-                photo: 'img/default-avatar.png',
-                xp: 350,
-                coins: 120,
-                level: 3
+            // Get the token and CPF from localStorage
+            var token = localStorage.getItem('access_token');
+            var userCpf = localStorage.getItem('user_cpf');
+            
+            if (!token || !userCpf) {
+                deferred.reject('Authentication information missing');
+                return deferred.promise;
+            }
+            
+            var req = {
+                method: 'GET',
+                url: 'https://service2.funifier.com/v3/player/' + userCpf + '/status',
+                headers: {
+                    "Authorization": "Bearer " + token,
+                    "Content-Type": "application/json"
+                }
             };
             
-            deferred.resolve(mockProfile);
+            $http(req).then(
+                function(response) {
+                    var data = response.data;
+                    
+                    // Process the photo URL to ensure it's valid
+                    var photoUrl = 'img/default-avatar.png';
+                    if (data.image && data.image.medium && data.image.medium.url) {
+                        // If the URL is relative (doesn't start with http), prepend with base URL if needed
+                        if (data.image.medium.url.startsWith('http') || data.image.medium.url.startsWith('/')) {
+                            photoUrl = data.image.medium.url;
+                        } else {
+                            photoUrl = data.image.medium.url;
+                        }
+                    }
+                    
+                    // Map the API response to our profile structure
+                    var profile = {
+                        name: data.name || 'Cliente',
+                        photo: photoUrl,
+                        xp: data.point_categories && data.point_categories.xp ? data.point_categories.xp : 0,
+                        coins: data.point_categories && data.point_categories.moedas ? data.point_categories.moedas : 0,
+                        level: data.level ? data.level.level : 'Iniciante'
+                    };
+                    
+                    console.log('Player profile data:', data);
+                    console.log('Mapped profile:', profile);
+                    
+                    deferred.resolve(profile);
+                },
+                function(error) {
+                    console.error('Error fetching player status:', error);
+                    deferred.reject(error);
+                }
+            );
             
             return deferred.promise;
         }
@@ -68,20 +109,121 @@
         function getChallenges() {
             var deferred = $q.defer();
             
-            // For MVP, we'll use mock data
-            // In a real scenario, we would make an API call to Funifier
-            var mockChallenges = [
-                {
-                    id: 1,
-                    title: 'Compras',
-                    description: 'A cada R$1 em compras = 1 moeda',
-                    progress: 120,
-                    target: null,
-                    icon: 'fa-shopping-cart'
-                }
-            ];
+            // Get the token and CPF from localStorage
+            var token = localStorage.getItem('access_token');
+            var userCpf = localStorage.getItem('user_cpf');
             
-            deferred.resolve(mockChallenges);
+            if (!token || !userCpf) {
+                deferred.reject('Authentication information missing');
+                return deferred.promise;
+            }
+            
+            var req = {
+                method: 'GET',
+                url: 'https://service2.funifier.com/v3/player/' + userCpf + '/status',
+                headers: {
+                    "Authorization": "Bearer " + token,
+                    "Content-Type": "application/json"
+                }
+            };
+            
+            $http(req).then(
+                function(response) {
+                    var data = response.data;
+                    var challenges = [];
+                    
+                    // Check if challenge_progress exists in the response
+                    if (data.challenge_progress && Array.isArray(data.challenge_progress)) {
+                        challenges = data.challenge_progress;
+                    }
+                    
+                    // If no challenges found, check if there are any active challenges
+                    if (challenges.length === 0 && data.active_challenges && Array.isArray(data.active_challenges)) {
+                        challenges = data.active_challenges.map(function(challenge) {
+                            return {
+                                challenge: challenge.challenge,
+                                description: challenge.description,
+                                points: challenge.points,
+                                progress: 0,
+                                target: null
+                            };
+                        });
+                    }
+                    
+                    // Map the API challenge data to our challenge structure
+                    var mappedChallenges = challenges.map(function(challenge) {
+                        // Extract XP and Moedas points from the challenge
+                        var xpPoints = 0;
+                        var moedaPoints = 0;
+                        var operation = '';
+                        
+                        if (challenge.points && Array.isArray(challenge.points)) {
+                            challenge.points.forEach(function(point) {
+                                if (point.category === 'xp') {
+                                    xpPoints = point.total;
+                                } else if (point.category === 'moedas') {
+                                    moedaPoints = point.total;
+                                    if (point.operation === 1 && point.value) {
+                                        operation = 'valor';
+                                    }
+                                }
+                            });
+                        }
+                        
+                        return {
+                            id: challenge._id || 'challenge-' + Math.random().toString(36).substring(2, 9),
+                            title: challenge.challenge || 'Desafio',
+                            description: challenge.description || 'Participe e ganhe pontos',
+                            progress: challenge.progress || 0,
+                            target: challenge.target || null,
+                            icon: 'fa-trophy',
+                            xpPoints: xpPoints,
+                            moedaPoints: moedaPoints,
+                            operation: operation
+                        };
+                    });
+                    
+                    // If no challenges were found, provide a default one
+                    if (mappedChallenges.length === 0) {
+                        mappedChallenges = [
+                            {
+                                id: 'default-challenge',
+                                title: 'Compre e ganhe',
+                                description: 'A cada 1 real gasto, ganhe 1 moeda. E a cada compra concluída ganhe 1 XP.',
+                                progress: 0,
+                                target: null,
+                                icon: 'fa-shopping-cart',
+                                xpPoints: 1,
+                                moedaPoints: 1,
+                                operation: 'valor'
+                            }
+                        ];
+                    }
+                    
+                    console.log('Mapped challenges:', mappedChallenges);
+                    deferred.resolve(mappedChallenges);
+                },
+                function(error) {
+                    console.error('Error fetching challenges:', error);
+                    
+                    // Fallback to default challenge if API call fails
+                    var defaultChallenges = [
+                        {
+                            id: 'default-challenge',
+                            title: 'Compre e ganhe',
+                            description: 'A cada 1 real gasto, ganhe 1 moeda. E a cada compra concluída ganhe 1 XP.',
+                            progress: 0,
+                            target: null,
+                            icon: 'fa-shopping-cart',
+                            xpPoints: 1,
+                            moedaPoints: 1,
+                            operation: 'valor'
+                        }
+                    ];
+                    
+                    deferred.resolve(defaultChallenges);
+                }
+            );
             
             return deferred.promise;
         }
