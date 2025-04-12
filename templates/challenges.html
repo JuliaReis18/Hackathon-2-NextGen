@@ -1,0 +1,82 @@
+<main-menu></main-menu>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-dark text-white">
+                    <h3><i class="fas fa-trophy me-2"></i> Desafios</h3>
+                </div>
+                <div class="card-body">
+                    <p class="lead">Complete desafios para ganhar moedas e aumentar seu nível!</p>
+                    
+                    <div class="alert alert-info" role="alert">
+                        <i class="fas fa-info-circle me-2"></i> Seu saldo atual: <strong>{{user.userProfile.coins}} moedas</strong>
+                    </div>
+                    
+                    <div class="challenge-card p-3 mb-3 border rounded" ng-repeat="challenge in user.challenges">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="me-3">
+                                <i class="fas {{challenge.icon}} fa-3x text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="mb-1">{{challenge.title}}</h4>
+                                <p class="mb-2 lead">{{challenge.description}}</p>
+                                <p class="text-muted mb-0">
+                                    <img src="img/coin.png" alt="Moedas" class="icon-img me-1" style="height: 18px;"> 
+                                    <span ng-if="challenge.target">{{challenge.progress}} / {{challenge.target}} moedas</span>
+                                    <span ng-if="!challenge.target">{{challenge.progress}} moedas acumuladas</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="progress" style="height: 25px;">
+                            <div class="progress-bar bg-success" role="progressbar" 
+                                 ng-style="{'width': challenge.target ? (challenge.progress / challenge.target * 100) + '%' : '100%'}" 
+                                 aria-valuenow="{{challenge.progress}}" aria-valuemin="0" aria-valuemax="{{challenge.target || 100}}">
+                                <span ng-if="challenge.target">{{Math.round(challenge.progress / challenge.target * 100)}}%</span>
+                                <span ng-if="!challenge.target">{{challenge.progress}} moedas</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center p-5" ng-if="user.challenges.length === 0">
+                        <i class="fas fa-trophy fa-4x text-muted mb-3"></i>
+                        <h4>Nenhum desafio disponível no momento</h4>
+                        <p>Novos desafios serão adicionados em breve!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow">
+                <div class="card-header bg-dark text-white">
+                    <h3><i class="fas fa-info-circle me-2"></i> Como Funciona</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-4 mb-md-0">
+                            <div class="text-center">
+                                <i class="fas fa-shopping-cart fa-3x text-primary mb-3"></i>
+                                <h4>Compre</h4>
+                                <p>A cada R$1 em compras, você ganha 1 moeda no programa de fidelidade.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4 mb-md-0">
+                            <div class="text-center">
+                                <img src="img/coin.png" alt="Moedas" class="icon-img mb-3" style="height: 48px;">
+                                <h4>Acumule</h4>
+                                <p>Acumule moedas e suba de nível para desbloquear benefícios exclusivos.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <i class="fas fa-gift fa-3x text-success mb-3"></i>
+                                <h4>Resgate</h4>
+                                <p>Use suas moedas para resgatar prêmios e experiências especiais.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
