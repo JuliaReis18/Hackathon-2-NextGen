@@ -12,12 +12,7 @@
                             <span class="level-badge">
                                 <i class="fas fa-star me-1"></i> {{user.userProfile.levelProgress.currentLevel}}
                             </span>
-                            <div class="level-progress-container mt-2">
-                                <div class="level-progress-bar" style="width: {{user.userProfile.levelProgress.percentCompleted}}%">
-                                    <span ng-if="user.userProfile.levelProgress.percentCompleted > 30">{{user.userProfile.levelProgress.percentCompleted}}%</span>
-                                </div>
-                                <span class="level-progress-text" ng-if="user.userProfile.levelProgress.percentCompleted <= 30">{{user.userProfile.levelProgress.percentCompleted}}%</span>
-                            </div>
+
                             <div class="level-details mt-1">
                                 <small class="text-muted">{{user.userProfile.levelProgress.currentLevelDescription}}</small>
                             </div>

@@ -3,12 +3,12 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8 col-sm-12">
-            <div class="card shadow mb-4">
-                <div class="card-header bg-dark text-white">
+            <div class="card shadow mb-4 elevation-2">
+                <div class="card-header">
                     <h3><i class="fas fa-user-circle me-2"></i> Minha Conta</h3>
                 </div>
                 <div class="card-body">
-                    <ul class="nav nav-tabs mb-4" id="profileTab" role="tablist">
+                    <ul class="nav nav-tabs custom-tabs mb-4" id="profileTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="edit-profile-tab" data-bs-toggle="tab" data-bs-target="#edit-profile" type="button" role="tab" aria-controls="edit-profile" aria-selected="true">
                                 <i class="fas fa-user-edit me-1"></i> Editar Perfil
@@ -26,9 +26,12 @@
                         <div class="tab-pane fade show active" id="edit-profile" role="tabpanel" aria-labelledby="edit-profile-tab">
                             <form ng-submit="user.editProfile(user.userProfile)">
                                 <div class="text-center mb-4">
-                                    <img ng-src="{{user.userProfile.photo}}" alt="{{user.userProfile.name}}" class="user-avatar mb-3">
+                                    <img ng-src="{{user.userProfile.photo}}" alt="{{user.userProfile.name}}" class="user-avatar mb-3" 
+                                         onload="this.style.opacity='1'" 
+                                         onerror="this.src='img/default-avatar.png'" 
+                                         style="opacity: 0; transition: opacity 0.3s ease;">
                                     <div>
-                                        <button type="button" class="btn btn-outline-primary btn-sm">
+                                        <button type="button" class="btn btn-outline-primary btn-sm elevation-1">
                                             <i class="fas fa-camera me-1"></i> Alterar Foto
                                         </button>
                                     </div>
@@ -36,7 +39,7 @@
                                 
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Nome Completo</label>
-                                    <div class="input-group">
+                                    <div class="input-group custom-input-group">
                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                                         <input type="text" class="form-control" id="name" ng-model="user.userProfile.name" required>
                                     </div>
@@ -44,7 +47,7 @@
                                 
                                 <div class="mb-3">
                                     <label for="email" class="form-label">E-mail</label>
-                                    <div class="input-group">
+                                    <div class="input-group custom-input-group">
                                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                         <input type="email" class="form-control" id="email" ng-model="user.userProfile.email" required>
                                     </div>
@@ -52,14 +55,14 @@
                                 
                                 <div class="mb-3">
                                     <label for="phone" class="form-label">Telefone</label>
-                                    <div class="input-group">
+                                    <div class="input-group custom-input-group">
                                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                         <input type="tel" class="form-control" id="phone" ng-model="user.userProfile.phone" required>
                                     </div>
                                 </div>
                                 
                                 <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary elevation-1">
                                         <i class="fas fa-save me-1"></i> Salvar Alterações
                                     </button>
                                 </div>
@@ -71,7 +74,7 @@
                             <form ng-submit="user.changePassword(currentPassword, newPassword)">
                                 <div class="mb-3">
                                     <label for="current-password" class="form-label">Senha Atual</label>
-                                    <div class="input-group">
+                                    <div class="input-group custom-input-group">
                                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                         <input type="password" class="form-control" id="current-password" ng-model="currentPassword" required>
                                     </div>
@@ -79,22 +82,23 @@
                                 
                                 <div class="mb-3">
                                     <label for="new-password" class="form-label">Nova Senha</label>
-                                    <div class="input-group">
+                                    <div class="input-group custom-input-group">
                                         <span class="input-group-text"><i class="fas fa-key"></i></span>
                                         <input type="password" class="form-control" id="new-password" ng-model="newPassword" required>
                                     </div>
+                                    <small class="text-muted mt-1">Sua senha deve ter pelo menos 6 caracteres</small>
                                 </div>
                                 
                                 <div class="mb-3">
                                     <label for="confirm-password" class="form-label">Confirmar Nova Senha</label>
-                                    <div class="input-group">
+                                    <div class="input-group custom-input-group">
                                         <span class="input-group-text"><i class="fas fa-check-double"></i></span>
                                         <input type="password" class="form-control" id="confirm-password" ng-model="confirmPassword" required>
                                     </div>
                                 </div>
                                 
                                 <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary elevation-1">
                                         <i class="fas fa-key me-1"></i> Alterar Senha
                                     </button>
                                 </div>
@@ -104,13 +108,13 @@
                 </div>
             </div>
             
-            <div class="card shadow">
-                <div class="card-header bg-danger text-white">
+            <div class="card shadow elevation-2">
+                <div class="card-header">
                     <h3><i class="fas fa-sign-out-alt me-2"></i> Sair da Conta</h3>
                 </div>
                 <div class="card-body">
-                    <p>Deseja encerrar sua sessão no programa de fidelidade?</p>
-                    <button class="btn btn-danger" ng-click="user.logout()">
+                    <p class="text-white">Deseja encerrar sua sessão no programa de fidelidade?</p>
+                    <button class="btn btn-outline-danger elevation-1" ng-click="user.logout()">
                         <i class="fas fa-sign-out-alt me-1"></i> Sair
                     </button>
                 </div>

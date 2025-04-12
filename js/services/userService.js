@@ -101,9 +101,57 @@
         function updateProfile(profile) {
             var deferred = $q.defer();
             
-            // For MVP, we'll just return the updated profile
-            // In a real scenario, we would make an API call to Funifier
-            deferred.resolve(profile);
+            // Get the token and user CPF from localStorage
+            var token = localStorage.getItem('access_token');
+            var userCpf = localStorage.getItem('user_cpf');
+            
+            if (!token || !userCpf) {
+                deferred.reject('Authentication information missing');
+                return deferred.promise;
+            }
+            
+            // Create request to update player in Funifier using the same endpoint as registration
+            var req = {
+                method: 'POST',
+                url: 'https://service2.funifier.com/v3/player',
+                headers: {
+                    "Authorization": "Bearer " + token,
+                    "Content-Type": "application/json"
+                },
+                data: {
+                    _id: userCpf,  // This is the key - same ID means update
+                    name: profile.name,
+                    email: profile.email,
+                    image: {
+                        small: { url: profile.photo },
+                        medium: { url: profile.photo },
+                        original: { url: profile.photo }
+                    },
+                    extra: {
+                        phone: profile.phone,
+                        // Preserve the password if it exists in the profile
+                        password: profile.password || undefined
+                    }
+                }
+            };
+            
+            $http(req).then(
+                function(response) {
+                    console.log('Profile update response:', response.data);
+                    
+                    // Update local storage with new profile data
+                    localStorage.setItem('user_name', profile.name);
+                    if (profile.photo) {
+                        localStorage.setItem('user_photo', profile.photo);
+                    }
+                    
+                    deferred.resolve(profile);
+                },
+                function(error) {
+                    console.error('Error updating profile:', error);
+                    deferred.reject(error);
+                }
+            );
             
             return deferred.promise;
         }
@@ -111,9 +159,76 @@
         function changePassword(currentPassword, newPassword) {
             var deferred = $q.defer();
             
-            // For MVP, we'll just simulate success
-            // In a real scenario, we would make an API call to Funifier
-            deferred.resolve();
+            // Get the token and user CPF from localStorage
+            var token = localStorage.getItem('access_token');
+            var userCpf = localStorage.getItem('user_cpf');
+            var userName = localStorage.getItem('user_name') || '';
+            var userPhoto = localStorage.getItem('user_photo') || 'img/default-avatar.png';
+            
+            if (!token || !userCpf) {
+                deferred.reject('Authentication information missing');
+                return deferred.promise;
+            }
+            
+            // First verify the current password
+            var authReq = {
+                method: 'POST',
+                url: 'https://service2.funifier.com/v3/auth/token',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                data: {
+                    apiKey: '67fa824b2327f74f3a34f106',
+                    grant_type: 'password',
+                    username: userCpf,
+                    password: currentPassword
+                }
+            };
+            
+            $http(authReq).then(
+                function(authResponse) {
+                    // Current password is correct, now update the password using the same endpoint as registration
+                    var updateReq = {
+                        method: 'POST',
+                        url: 'https://service2.funifier.com/v3/player',
+                        headers: {
+                            "Authorization": "Bearer " + token,
+                            "Content-Type": "application/json"
+                        },
+                        data: {
+                            _id: userCpf,  // This is the key - same ID means update
+                            name: userName,
+                            image: {
+                                small: { url: userPhoto },
+                                medium: { url: userPhoto },
+                                original: { url: userPhoto }
+                            },
+                            extra: {
+                                password: newPassword
+                            }
+                        }
+                    };
+                    
+                    $http(updateReq).then(
+                        function(response) {
+                            console.log('Password update response:', response.data);
+                            deferred.resolve();
+                        },
+                        function(error) {
+                            console.error('Error updating password:', error);
+                            deferred.reject({
+                                message: 'Erro ao atualizar senha. Tente novamente.'
+                            });
+                        }
+                    );
+                },
+                function(error) {
+                    console.error('Current password verification failed:', error);
+                    deferred.reject({
+                        message: 'Senha atual incorreta. Por favor, verifique e tente novamente.'
+                    });
+                }
+            );
             
             return deferred.promise;
         }
