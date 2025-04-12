@@ -53,8 +53,6 @@ Tudo isso sem perder a essência cultural e acolhedora que define a Literal Caf�
 ---
 
 
----
-
 ## 📚 Agradecimentos
 
 Agradecemos à **Funifier**, ao programa **NextGen**, pela oportunidade de explorar ideias criativas e desenvolver soluções reais com impacto positivo.
@@ -65,5 +63,6 @@ Agradecemos à **Funifier**, ao programa **NextGen**, pela oportunidade de explo
 ## ☕ Literal Café: mais que café, uma experiência.  
 
 **Expresso Devs** – Gamificando conexões culturais.
+---
 
 ### Feito com 💛 por: **Expresso Devs**
