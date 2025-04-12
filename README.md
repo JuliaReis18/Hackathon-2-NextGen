@@ -62,7 +62,6 @@ Agradecemos à **Funifier**, ao programa **NextGen**, pela oportunidade de explo
 
 ## ☕ Literal Café: mais que café, uma experiência.  
 
-**Expresso Devs** – Gamificando conexões culturais.
 ---
 
 ### Feito com 💛 por: **Expresso Devs**
