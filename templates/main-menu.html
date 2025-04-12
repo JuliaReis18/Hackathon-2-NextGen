@@ -10,28 +10,28 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" ng-class="{ active: menu.isActive('/dashboard') }" href="#/dashboard">
+                        <li class="nav-item d-none d-lg-block">
+                            <a class="nav-link" ng-class="{ active: menu.isActive('/dashboard') }" href="javascript:void(0)" ng-click="menu.navigateTo('/dashboard')">
                                 <i class="fas fa-home me-2"></i> Status
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" ng-class="{ active: menu.isActive('/challenges') }" href="#/challenges">
+                        <li class="nav-item d-none d-lg-block">
+                            <a class="nav-link" ng-class="{ active: menu.isActive('/challenges') }" href="javascript:void(0)" ng-click="menu.navigateTo('/challenges')">
                                 <i class="fas fa-trophy me-2"></i> Desafios
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" ng-class="{ active: menu.isActive('/rewards') }" href="#/rewards">
+                        <li class="nav-item d-none d-lg-block">
+                            <a class="nav-link" ng-class="{ active: menu.isActive('/rewards') }" href="javascript:void(0)" ng-click="menu.navigateTo('/rewards')">
                                 <i class="fas fa-gift me-2"></i> Prêmios
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" ng-class="{ active: menu.isActive('/profile') }" href="#/profile">
+                        <li class="nav-item d-none d-lg-block">
+                            <a class="nav-link" ng-class="{ active: menu.isActive('/profile') }" href="javascript:void(0)" ng-click="menu.navigateTo('/profile')">
                                 <i class="fas fa-user-circle me-2"></i> Conta
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" ng-click="menu.logout()">
+                            <a class="nav-link" href="javascript:void(0)" ng-click="menu.logout()">
                                 <i class="fas fa-sign-out-alt me-2"></i> Sair
                             </a>
                         </li>
