@@ -44,19 +44,19 @@
 
 <!-- Mobile Bottom Navigation -->
 <div class="mobile-nav elevation-3" ng-if="menu.isAuthenticated()">
-    <a class="mobile-nav-item" ng-class="{ active: menu.isActive('/dashboard') }" href="#/dashboard">
+    <a class="mobile-nav-item" ng-class="{ active: menu.isActive('/dashboard') }" ng-click="menu.navigateTo('/dashboard')" href="javascript:void(0)">
         <i class="fas fa-home"></i>
         <span>Status</span>
     </a>
-    <a class="mobile-nav-item" ng-class="{ active: menu.isActive('/challenges') }" href="#/challenges">
+    <a class="mobile-nav-item" ng-class="{ active: menu.isActive('/challenges') }" ng-click="menu.navigateTo('/challenges')" href="javascript:void(0)">
         <i class="fas fa-trophy"></i>
         <span>Desafios</span>
     </a>
-    <a class="mobile-nav-item" ng-class="{ active: menu.isActive('/rewards') }" href="#/rewards">
+    <a class="mobile-nav-item" ng-class="{ active: menu.isActive('/rewards') }" ng-click="menu.navigateTo('/rewards')" href="javascript:void(0)">
         <i class="fas fa-gift"></i>
         <span>Prêmios</span>
     </a>
-    <a class="mobile-nav-item" ng-class="{ active: menu.isActive('/profile') }" href="#/profile">
+    <a class="mobile-nav-item" ng-class="{ active: menu.isActive('/profile') }" ng-click="menu.navigateTo('/profile')" href="javascript:void(0)">
         <i class="fas fa-user-circle"></i>
         <span>Conta</span>
     </a>

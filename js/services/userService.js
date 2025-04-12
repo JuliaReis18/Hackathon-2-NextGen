@@ -231,33 +231,100 @@
         function getRewards() {
             var deferred = $q.defer();
             
-            // For MVP, we'll use mock data
-            // In a real scenario, we would make an API call to Funifier
-            var mockRewards = [
-                {
-                    id: 1,
-                    title: 'Café Espresso',
-                    description: 'Um delicioso café espresso',
-                    cost: 50,
-                    image: 'img/rewards/espresso.jpg'
-                },
-                {
-                    id: 2,
-                    title: 'Cappuccino',
-                    description: 'Cappuccino cremoso',
-                    cost: 80,
-                    image: 'img/rewards/cappuccino.jpg'
-                },
-                {
-                    id: 3,
-                    title: 'Pão de Queijo',
-                    description: 'Pão de queijo quentinho',
-                    cost: 30,
-                    image: 'img/rewards/pao-queijo.jpg'
-                }
-            ];
+            // Get the token from localStorage
+            var token = localStorage.getItem('access_token');
             
-            deferred.resolve(mockRewards);
+            if (!token) {
+                deferred.reject('Authentication information missing');
+                return deferred.promise;
+            }
+            
+            var req = {
+                method: 'GET',
+                url: 'https://service2.funifier.com/v3/virtualgoods/item',
+                headers: {
+                    "Authorization": "Bearer " + token,
+                    "Content-Type": "application/json"
+                }
+            };
+            
+            $http(req).then(
+                function(response) {
+                    var data = response.data;
+                    console.log('Rewards API response:', data);
+                    
+                    // Map the API response to our rewards structure
+                    var mappedRewards = [];
+                    
+                    if (Array.isArray(data)) {
+                        mappedRewards = data.map(function(reward) {
+                            // Get the cost from the requires array
+                            var cost = 0;
+                            if (reward.requires && Array.isArray(reward.requires)) {
+                                reward.requires.forEach(function(requirement) {
+                                    if (requirement.item === 'moedas') {
+                                        cost = requirement.total;
+                                    }
+                                });
+                            }
+                            
+                            return {
+                                id: reward._id,
+                                title: reward.name,
+                                description: reward.description,
+                                cost: cost,
+                                image: reward.image && reward.image.medium ? reward.image.medium.url : 'img/rewards/default-reward.jpg'
+                            };
+                        });
+                    }
+                    
+                    // If no rewards were found, provide default ones
+                    if (mappedRewards.length === 0) {
+                        mappedRewards = [
+                            {
+                                id: 'default-reward-1',
+                                title: 'Café Espresso',
+                                description: 'Um delicioso café espresso',
+                                cost: 50,
+                                image: 'img/rewards/espresso.jpg'
+                            },
+                            {
+                                id: 'default-reward-2',
+                                title: 'Cappuccino',
+                                description: 'Cappuccino cremoso',
+                                cost: 80,
+                                image: 'img/rewards/cappuccino.jpg'
+                            }
+                        ];
+                    }
+                    
+                    console.log('Mapped rewards:', mappedRewards);
+                    deferred.resolve(mappedRewards);
+                },
+                function(error) {
+                    console.error('Error fetching rewards:', error);
+                    
+                    // Fallback to default rewards if API call fails
+                    var defaultRewards = [
+                        {
+                            id: 'default-reward-1',
+                            title: 'Café Espresso',
+                            description: 'Um delicioso café espresso',
+                            cost: 50,
+                            image: 'img/rewards/espresso.jpg'
+                        },
+                        {
+                            id: 'default-reward-2',
+                            title: 'Cappuccino',
+                            description: 'Cappuccino cremoso',
+                            cost: 80,
+                            image: 'img/rewards/cappuccino.jpg'
+                        }
+                    ];
+                    
+                    deferred.resolve(defaultRewards);
+                }
+            );
             
             return deferred.promise;
         }
@@ -283,21 +350,82 @@
             return deferred.promise;
         }
         
-        function redeemReward(rewardId) {
+        function redeemReward(reward) {
             var deferred = $q.defer();
             
-            // For MVP, we'll use mock data
-            // In a real scenario, we would make an API call to Funifier
-            var mockRedeemedReward = {
-                id: rewardId,
-                title: 'Café Espresso',
-                description: 'Um delicioso café espresso',
-                redeemedDate: new Date(),
-                qrCode: 'CAFE-ESP-' + Math.floor(100000 + Math.random() * 900000),
-                image: 'img/rewards/espresso.jpg'
-            };
+            // Get the token and user CPF from localStorage
+            var token = localStorage.getItem('access_token');
+            var userCpf = localStorage.getItem('user_cpf');
             
-            deferred.resolve(mockRedeemedReward);
+            if (!token || !userCpf) {
+                deferred.reject('Authentication information missing');
+                return deferred.promise;
+            }
+            
+            // First check if user has enough coins
+            getUserProfile().then(
+                function(profile) {
+                    if (profile.coins < reward.cost) {
+                        deferred.reject({
+                            error: 'insufficient_coins',
+                            message: 'Você não tem moedas suficientes para resgatar este prêmio.'
+                        });
+                        return;
+                    }
+                    
+                    // If we have enough coins, make the API call to redeem the reward
+                    var req = {
+                        method: 'POST',
+                        url: 'https://service2.funifier.com/v3/virtualgoods/redeem',
+                        headers: {
+                            "Authorization": "Bearer " + token,
+                            "Content-Type": "application/json"
+                        },
+                        data: {
+                            player_id: userCpf,
+                            item_id: reward.id
+                        }
+                    };
+                    
+                    $http(req).then(
+                        function(response) {
+                            console.log('Reward redemption response:', response.data);
+                            
+                            // Create a redemption object with the response data
+                            var redeemedReward = {
+                                id: reward.id,
+                                title: reward.title,
+                                description: reward.description,
+                                redeemedDate: new Date(),
+                                qrCode: 'CAFE-' + Math.floor(100000 + Math.random() * 900000),
+                                image: reward.image
+                            };
+                            
+                            // Add the redeemed reward to localStorage history
+                            var redeemedHistory = localStorage.getItem('redeemed_rewards');
+                            var redeemedRewards = redeemedHistory ? JSON.parse(redeemedHistory) : [];
+                            redeemedRewards.push(redeemedReward);
+                            localStorage.setItem('redeemed_rewards', JSON.stringify(redeemedRewards));
+                            
+                            deferred.resolve(redeemedReward);
+                        },
+                        function(error) {
+                            console.error('Error redeeming reward:', error);
+                            deferred.reject({
+                                error: 'api_error',
+                                message: 'Ocorreu um erro ao resgatar o prêmio. Tente novamente mais tarde.'
+                            });
+                        }
+                    );
+                },
+                function(error) {
+                    console.error('Error getting user profile:', error);
+                    deferred.reject({
+                        error: 'profile_error',
+                        message: 'Não foi possível verificar seu saldo. Tente novamente mais tarde.'
+                    });
+                }
+            );
             
             return deferred.promise;
         }

@@ -4,10 +4,10 @@
     <div class="row">
         <div class="col-12">
             <div class="card shadow mb-4">
-                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h3><i class="fas fa-gift me-2"></i> Prêmios</h3>
                     <div>
-                        <span class="badge bg-warning text-dark p-2">
+                        <span class="badge p-2 elevation-1" style="background-color: var(--primary); color: var(--text-dark);">
                             <img src="img/coin.png" alt="Moedas" class="icon-img me-1" style="height: 16px;"> {{user.userProfile.coins}} moedas
                         </span>
                     </div>
@@ -31,20 +31,28 @@
                         <div class="tab-pane fade show active" id="available" role="tabpanel" aria-labelledby="available-tab">
                             <div class="row">
                                 <div class="col-md-4 col-sm-6 mb-4" ng-repeat="reward in user.rewards">
-                                    <div class="card reward-card h-100">
+                                    <div class="card reward-card h-100 elevation-2">
                                         <div class="position-relative">
-                                            <img ng-src="{{reward.image}}" class="card-img-top reward-image" alt="{{reward.title}}">
-                                            <span class="reward-cost"><img src="img/coin.png" alt="Moedas" class="icon-img me-1" style="height: 16px;"> {{reward.cost}}</span>
+                                            <div class="reward-image-container">
+                                                <img ng-src="{{reward.image}}" class="card-img-top reward-image" alt="{{reward.title}}" 
+                                                     onload="this.style.opacity='1'" 
+                                                     onerror="this.src='img/rewards/default-reward.jpg'" 
+                                                     style="opacity: 0; transition: opacity 0.3s ease;">
+                                            </div>
+                                            <span class="reward-cost elevation-1"><img src="img/coin.png" alt="Moedas" class="icon-img me-1" style="height: 16px;"> {{reward.cost}}</span>
                                         </div>
                                         <div class="card-body">
                                             <h5 class="card-title">{{reward.title}}</h5>
-                                            <p class="card-text">{{reward.description}}</p>
+                                            <p class="card-text reward-description">{{reward.description}}</p>
                                         </div>
-                                        <div class="card-footer">
-                                            <button class="btn btn-primary w-100" ng-click="user.redeemReward(reward)" ng-disabled="user.userProfile.coins < reward.cost">
+                                        <div class="card-footer border-top" style="border-color: rgba(201, 149, 76, 0.2);">
+                                            <button class="btn w-100" 
+                                                    ng-class="{'btn-primary': user.userProfile.coins >= reward.cost, 'btn-outline-secondary': user.userProfile.coins < reward.cost}" 
+                                                    ng-click="user.redeemReward(reward)" 
+                                                    ng-disabled="user.userProfile.coins < reward.cost">
                                                 <i class="fas fa-shopping-cart me-1"></i> Resgatar
                                             </button>
-                                            <small class="text-danger d-block text-center mt-2" ng-if="user.userProfile.coins < reward.cost">
+                                            <small class="text-warning d-block text-center mt-2" ng-if="user.userProfile.coins < reward.cost">
                                                 Você precisa de mais {{reward.cost - user.userProfile.coins}} moedas
                                             </small>
                                         </div>
@@ -63,21 +71,36 @@
                         <div class="tab-pane fade" id="redeemed" role="tabpanel" aria-labelledby="redeemed-tab">
                             <div class="row">
                                 <div class="col-md-6 col-sm-12 mb-4" ng-repeat="reward in user.redeemedRewards">
-                                    <div class="card h-100">
-                                        <div class="card-header bg-success text-white">
+                                    <div class="card h-100 elevation-2" style="border: 1px solid rgba(201, 149, 76, 0.3);">
+                                        <div class="card-header" style="border-bottom: 1px solid rgba(201, 149, 76, 0.2);">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <h5 class="mb-0">{{reward.title}}</h5>
-                                                <span>{{reward.redeemedDate | date:'dd/MM/yyyy'}}</span>
+                                                <span class="badge" style="background-color: var(--primary);">{{reward.redeemedDate | date:'dd/MM/yyyy'}}</span>
                                             </div>
                                         </div>
                                         <div class="card-body text-center">
-                                            <img ng-src="{{reward.image}}" class="img-fluid mb-3" style="max-height: 100px;" alt="{{reward.title}}">
+                                            <div class="reward-modal-image mb-3">
+                                                <img ng-src="{{reward.image}}" class="img-fluid rounded" style="max-height: 120px;" alt="{{reward.title}}" 
+                                                     onerror="this.src='img/rewards/default-reward.jpg'">
+                                            </div>
                                             <p>{{reward.description}}</p>
                                             <div class="qr-code-container mb-3">
-                                                <!-- In a real app, we would generate an actual QR code image -->
-                                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{reward.qrCode}}" alt="QR Code" class="img-fluid">
+                                                <div id="redeemedQRCode-{{$index}}" class="d-inline-block p-2 bg-white rounded"></div>
+                                                <script>
+                                                    // Generate QR code for redeemed reward
+                                                    setTimeout(function() {
+                                                        new QRCode(document.getElementById('redeemedQRCode-{{$index}}'), {
+                                                            text: '{{reward.qrCode}}',
+                                                            width: 150,
+                                                            height: 150,
+                                                            colorDark: '#1D140F',
+                                                            colorLight: '#ffffff',
+                                                            correctLevel: QRCode.CorrectLevel.H
+                                                        });
+                                                    }, 100);
+                                                </script>
                                             </div>
-                                            <p class="mb-0"><strong>Código:</strong> {{reward.qrCode}}</p>
+                                            <p class="mb-0 badge bg-light text-dark p-2"><strong>Código:</strong> {{reward.qrCode}}</p>
                                         </div>
                                     </div>
                                 </div>

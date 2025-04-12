@@ -65,7 +65,7 @@
                                     </div>
                                     <div class="reward-badge" ng-if="challenge.moedaPoints > 0">
                                         <img src="img/coin.png" alt="Moedas" class="icon-img me-1" style="height: 18px;"> 
-                                        <span>{{challenge.moedaPoints}} {{challenge.operation === 'valor' ? 'por real' : 'moedas'}}</span>
+                                        <span>{{challenge.moedaPoints}} {{challenge.operation === 'valor' ? 'moeda' : 'moedas'}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -87,29 +87,37 @@
     <div class="row mt-4">
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card shadow h-100">
-                <div class="card-header bg-dark text-white">
+                <div class="card-header">
                     <h4><i class="fas fa-gift me-2"></i> Prêmios Disponíveis</h4>
                 </div>
                 <div class="card-body">
-                    <div class="text-center" ng-if="user.rewards.length === 0">
+                    <div class="text-center py-4" ng-if="user.rewards.length === 0">
+                        <i class="fas fa-gift fa-3x mb-3" style="color: var(--primary);"></i>
                         <p>Nenhum prêmio disponível no momento.</p>
                     </div>
                     <div class="row">
                         <div class="col-6 mb-3" ng-repeat="reward in user.rewards | limitTo:2">
-                            <div class="card reward-card h-100" ng-click="user.redeemReward(reward)">
+                            <div class="card reward-card h-100 elevation-2" ng-click="user.redeemReward(reward)">
                                 <div class="position-relative">
-                                    <img ng-src="{{reward.image}}" class="card-img-top reward-image" alt="{{reward.title}}">
-                                    <span class="reward-cost"><img src="img/coin.png" alt="Moedas" class="icon-img me-1" style="height: 16px;"> {{reward.cost}}</span>
+                                    <div class="reward-image-container">
+                                        <img ng-src="{{reward.image}}" class="card-img-top reward-image" alt="{{reward.title}}" 
+                                             onload="this.style.opacity='1'" 
+                                             onerror="this.src='img/rewards/default-reward.jpg'" 
+                                             style="opacity: 0; transition: opacity 0.3s ease;">
+                                    </div>
+                                    <span class="reward-cost elevation-1"><img src="img/coin.png" alt="Moedas" class="icon-img me-1" style="height: 16px;"> {{reward.cost}}</span>
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">{{reward.title}}</h5>
-                                    <p class="card-text">{{reward.description}}</p>
+                                    <p class="card-text reward-description">{{reward.description | limitTo: 80}}{{reward.description.length > 80 ? '...' : ''}}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="text-center mt-3" ng-if="user.rewards.length > 2">
-                        <a href="#/rewards" class="btn btn-outline-primary">Ver todos os prêmios</a>
+                    <div class="text-center mt-3">
+                        <button ng-click="user.navigateTo('/rewards')" class="btn btn-outline-primary">
+                            <i class="fas fa-gift me-1"></i> Ver todos os prêmios
+                        </button>
                     </div>
                 </div>
             </div>
@@ -141,4 +149,54 @@
             </div>
         </div>
     </div>
+
+<!-- Reward Redeemed Modal -->
+<div class="modal fade" id="rewardRedeemedModal" tabindex="-1" aria-labelledby="rewardRedeemedModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rewardRedeemedModalLabel">Prêmio Resgatado com Sucesso!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="reward-modal-image mb-3">
+                    <img ng-src="{{user.currentRedeemedReward.image}}" alt="{{user.currentRedeemedReward.title}}" 
+                         onerror="this.src='img/rewards/default-reward.jpg'" class="img-fluid rounded">
+                </div>
+                <h4>{{user.currentRedeemedReward.title}}</h4>
+                <p>{{user.currentRedeemedReward.description}}</p>
+                <div class="qr-code-container my-4">
+                    <p class="mb-2">Apresente este QR Code no balcão para retirar seu prêmio:</p>
+                    <div id="rewardQRCode" class="d-inline-block p-2 bg-white rounded"></div>
+                    <p class="mt-2 text-muted">Código: {{user.currentRedeemedReward.qrCode}}</p>
+                </div>
+                <p class="text-success"><i class="fas fa-check-circle"></i> O prêmio foi adicionado ao seu histórico de resgates.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Erro</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="error-icon mb-3">
+                    <i class="fas fa-exclamation-circle fa-4x text-danger"></i>
+                </div>
+                <p id="errorMessage" class="lead"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
 </div>

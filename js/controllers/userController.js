@@ -27,6 +27,7 @@
         vm.editProfile = editProfile;
         vm.changePassword = changePassword;
         vm.redeemReward = redeemReward;
+        vm.navigateTo = navigateTo;
         
         // Initialize controller
         activate();
@@ -107,16 +108,63 @@
         
         function redeemReward(reward) {
             // Redeem a reward
-            UserService.redeemReward(reward.id)
+            UserService.redeemReward(reward)
                 .then(function(redeemedReward) {
+                    // Update the user's coin balance
                     vm.userProfile.coins -= reward.cost;
                     vm.redeemedRewards.push(redeemedReward);
-                    alert('Prêmio resgatado com sucesso!');
+                    
+                    // Show the redemption modal with QR code
+                    vm.currentRedeemedReward = redeemedReward;
+                    
+                    // Generate QR code for the reward
+                    var qrCodeElement = document.getElementById('rewardQRCode');
+                    if (qrCodeElement) {
+                        // Clear previous QR code
+                        qrCodeElement.innerHTML = '';
+                        
+                        // Generate new QR code
+                        new QRCode(qrCodeElement, {
+                            text: redeemedReward.qrCode,
+                            width: 180,
+                            height: 180,
+                            colorDark: '#1D140F',
+                            colorLight: '#ffffff',
+                            correctLevel: QRCode.CorrectLevel.H
+                        });
+                    }
+                    
+                    // Show the modal
+                    $('#rewardRedeemedModal').modal('show');
+                    
+                    // Refresh rewards list after a successful redemption
+                    UserService.getRewards()
+                        .then(function(rewards) {
+                            vm.rewards = rewards;
+                        });
                 })
                 .catch(function(error) {
                     console.error('Error redeeming reward:', error);
-                    alert('Erro ao resgatar prêmio. Tente novamente.');
+                    
+                    // Show error message based on error type
+                    var errorMessage = 'Erro ao resgatar prêmio. Tente novamente mais tarde.';
+                    
+                    if (error && error.error === 'insufficient_coins') {
+                        errorMessage = 'Você não tem moedas suficientes para resgatar este prêmio.';
+                    } else if (error && error.message) {
+                        errorMessage = error.message;
+                    }
+                    
+                    // Show error in a modal or alert
+                    $('#errorMessage').text(errorMessage);
+                    $('#errorModal').modal('show');
                 });
+        }
+        
+        function navigateTo(path) {
+            // Navigate to the specified path
+            console.log('Navigating to:', path);
+            $location.path(path);
         }
     }
 })();

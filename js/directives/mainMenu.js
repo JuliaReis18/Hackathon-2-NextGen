@@ -26,6 +26,7 @@
         // Methods
         vm.isActive = isActive;
         vm.logout = logout;
+        vm.navigateTo = navigateTo;
         
         function isActive(viewLocation) {
             return viewLocation === $location.path();
@@ -34,6 +35,12 @@
         function logout() {
             AuthService.logout();
             $location.path('/');
+        }
+        
+        function navigateTo(path) {
+            // Navigate to the specified path
+            console.log('MainMenu navigating to:', path);
+            $location.path(path);
         }
     }
 })();
